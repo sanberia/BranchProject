@@ -6,6 +6,7 @@ const app = express();
 const fs = require('fs') 
 
 var my_token = ""
+
 fs.readFile('Token.txt', (err, data) => { 
     if (err) throw err; 
     
@@ -103,10 +104,16 @@ async function getMemberInfo(member)
 {
     try
     {
-        return await axios.get(`https://api.github.com/users/${member}`, {
-            'headers': {
-              'Authorization': `token ${my_token}` 
-            }})
+        if (my_token)
+        {
+            return await axios.get(`https://api.github.com/users/${member}`, {
+                'headers': {
+                  'Authorization': `token ${my_token}` 
+                }})
+        }
+        else{
+            return await axios.get(`https://api.github.com/users/${member}`)
+        }
     }
     catch (error)
     {
@@ -119,12 +126,17 @@ async function getMemberRepos(member)
 {
     try
     {
+        if(my_token)
+        {
+            return await axios.get(`https://api.github.com/users/${member}/repos`, {
+                'headers': {
+                  'Authorization': `token ${my_token}` 
+                }})
+        }
+        else{
+            return await axios.get(`https://api.github.com/users/${member}/repos`)
+        }
         
-
-        return await axios.get(`https://api.github.com/users/${member}/repos`, {
-            'headers': {
-              'Authorization': `token ${my_token}` 
-            }})
     }
     catch (error)
     {
