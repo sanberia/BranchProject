@@ -3,6 +3,15 @@ const axios = require('axios')
 
 const app = express();
 
+const fs = require('fs') 
+
+var my_token = ""
+fs.readFile('Token.txt', (err, data) => { 
+    if (err) throw err; 
+    
+    my_token = data.toString(); 
+}) 
+
 // set up endpoint that takes username
 app.get('/:id', getMember)
 
@@ -89,10 +98,6 @@ function formatDate(date)
     return newdate
 }
 
-
-
-const my_token = '84f905f6f4df710d35ac4005fcd9f185f0ba90a3'
-
 // retrieves member information
 async function getMemberInfo(member)
 {
@@ -114,6 +119,8 @@ async function getMemberRepos(member)
 {
     try
     {
+        
+
         return await axios.get(`https://api.github.com/users/${member}/repos`, {
             'headers': {
               'Authorization': `token ${my_token}` 
