@@ -2,7 +2,7 @@
 This project uses Node.js, Axios, and Express to return a json object when given a username.
 I went with Node.js due to simplicity and ease of use.
 
-Copy and paste just the authorization token into a file called token.txt in the same directory as index.js
+Copy and paste just the authorization token into a file called token.txt in the same directory as index.js. If no token is used, you have a limit of 60 requests per hour.
 Run with "node index" and use port 5000.
 
 '/' prints Hello World !!! as a test and any '/username' should print the json data retrieved from github and formatted as requested
